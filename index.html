@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nan photography • Foto & Video Evenimente</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0c0c0d;      
+      --paper:#f4f1ec;
+      --ink:#1b1b1b;
+      --gold:#c5a47e;
+      --accent:#111214;
+      --muted:#8b8b8b;
+      --shadow: 0 10px 30px rgba(0,0,0,.25);
+      --radius: 20px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Montserrat,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;scroll-behavior:smooth}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+
+    /* Utility */
+    .container{width:min(1200px,92%);margin-inline:auto}
+    .btn{display:inline-block;padding:.9rem 1.4rem;border-radius:999px;background:var(--gold);color:#121212;font-weight:700;letter-spacing:.5px;box-shadow:var(--shadow);transition:transform .25s ease, box-shadow .25s}
+    .btn:hover{transform:translateY(-2px)}
+
+    /* Animations */
+    @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+    .reveal{opacity:0;animation:fadeUp .8s ease .15s forwards}
+
+    /* NAV */
+    header{position:fixed;inset:0 0 auto 0;z-index:10;background:linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,0));backdrop-filter:saturate(130%) blur(6px)}
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0;color:#fff}
+    .brand{font-family:"Playfair Display",serif;font-weight:700;letter-spacing:.2rem}
+    .brand span{color:var(--gold)}
+    .nav ul{list-style:none;display:flex;gap:26px;margin:0;padding:0}
+    .nav a{color:#fff;opacity:.9;font-weight:600}
+    .nav a:hover{opacity:1}
+
+    /* HERO */
+    .hero{height:92vh;min-height:560px;display:grid;place-items:center;background:radial-gradient(circle at 30% 20%, rgba(0,0,0,.15), rgba(0,0,0,.65)), url('https://images-pw.pixieset.com/elementfield/M4jOr1X/2024-07-27-MatthiasAnastasiya-DaniHaupt-CouplePhotos86-e530480f-1500.jpg') center/cover fixed;color:#fff;position:relative}
+    .hero::after{content:"";position:absolute;inset:auto 0 0 0;height:160px;background:linear-gradient(180deg, rgba(0,0,0,0), var(--bg))}
+    .hero-inner{position:relative;text-align:center;z-index:1}
+    .kicker{letter-spacing:.35em;text-transform:uppercase;font-weight:600;color:#e9e9e9;opacity:.85}
+    .title{font-family:"Playfair Display",serif;font-size:clamp(2.2rem, 6vw, 4.2rem);margin:.4rem 0 1rem}
+    .subtitle{max-width:740px;margin:0 auto 2rem;opacity:.9;line-height:1.6}
+
+    /* SECTION BASE */
+    section{padding:80px 0;background:var(--paper)}
+    section.alt{background:#ebe6df}
+    .section-title{font-family:"Playfair Display",serif;font-size:clamp(1.4rem,3.2vw,2.2rem);margin:0 0 12px}
+    .section-kicker{color:var(--muted);text-transform:uppercase;letter-spacing:.3em;font-weight:700;font-size:.8rem;margin-bottom:22px}
+
+    /* PORTFOLIO */
+    .grid{display:grid;gap:18px}
+    .grid.portfolio{grid-template-columns:repeat(12,1fr)}
+    .grid .card{grid-column:span 4;background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);position:relative}
+    .grid .card.tall{grid-column:span 8}
+    .grid .card img{aspect-ratio:4/3;object-fit:cover;width:100%;transition:transform .5s}
+    .grid .card:hover img{transform:scale(1.05)}
+    .caption{position:absolute;inset:auto 0 0 0;padding:14px 16px;background:linear-gradient(180deg,transparent, rgba(0,0,0,.65));color:#fff;font-weight:700;letter-spacing:.04em}
+
+    /* PRICING */
+    .pricing{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:stretch}
+    .panel{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:26px}
+    .choices{display:grid;gap:10px}
+    .option{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:14px;padding:14px;border:1px solid #eee;border-radius:16px;cursor:pointer;transition:transform .2s,border .2s}
+    .option:hover{transform:translateY(-2px)}
+    .option strong{font-size:1rem}
+    .option small{color:var(--muted)}
+    input[type=radio]{appearance:none;width:18px;height:18px;border-radius:50%;border:2px solid #bbb;display:grid;place-content:center}
+    input[type=radio]::before{content:"";width:10px;height:10px;border-radius:50%;transform:scale(0);transition:transform .2s;background:var(--gold)}
+    input[type=radio]:checked{border-color:var(--gold)}
+    input[type=radio]:checked::before{transform:scale(1)}
+
+    .price-view{position:relative}
+    .price-card{position:absolute;inset:0;opacity:0;pointer-events:none;transform:translateY(10px);transition:opacity .3s, transform .3s}
+    .price-card.active{opacity:1;pointer-events:auto;transform:translateY(0)}
+    .price-tag{font-family:"Playfair Display",serif;font-size:clamp(2rem,4vw,3rem)}
+    .feature{display:flex;gap:10px;margin:10px 0;color:#333}
+    .muted{color:var(--muted)}
+
+    /* ABOUT */
+    .about{display:grid;grid-template-columns:1.2fr .8fr;gap:30px;align-items:center}
+    .about .photo{border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
+
+    /* CONTACT */
+    .contact{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+    .form{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:26px}
+    .form label{display:block;font-weight:700;margin:.6rem 0 .35rem}
+    .form input,.form textarea{width:100%;padding:12px 14px;border-radius:12px;border:1px solid #ddd;background:#fafafa}
+    .form textarea{min-height:150px;resize:vertical}
+
+    /* FOOTER */
+    footer{background:#111;color:#d8d8d8}
+    .foot{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center;padding:26px 0}
+    .social a{padding:.6rem;opacity:.8}
+    .social a:hover{opacity:1}
+
+    /* RESPONSIVE */
+    @media (max-width: 980px){
+      .grid .card{grid-column:span 6}
+      .grid .card.tall{grid-column:span 12}
+      .pricing{grid-template-columns:1fr}
+      .about{grid-template-columns:1fr}
+      .contact{grid-template-columns:1fr}
+    }
+    @media (max-width: 640px){
+      .nav ul{display:none}
+      .kicker{font-size:.7rem}
+    }
+  </style>
+</head>
+<body>
+  <!-- NAV -->
+  <header>
+    <div class="container nav">
+      <div class="brand">Nan<span> Photography</div>
+      <ul>
+        <li><a href="#home">Acasă</a></li>
+        <li><a href="#portofoliu">Portofoliu</a></li>
+        <li><a href="#preturi">Prețuri</a></li>
+        <li><a href="#despre">Despre</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </header>
+
+<!-- INTRO SCREEN -->
+<div id="intro">
+  <div class="intro-circle"></div>
+  <div class="intro-logo">Nan <span>Photography</span></div>
+</div>
+
+<style>
+  /* INTRO */
+  #intro {
+    position: fixed;
+    inset: 0;
+    background: #0c0c0d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    z-index: 9999;
+    transition: opacity 1s ease, visibility 1s ease;
+    overflow: hidden;
+  }
+
+  /* Cerc cinematic glow */
+  .intro-circle {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(197,164,126,0.8) 0%, rgba(12,12,13,0) 70%);
+    animation: pulse 2s infinite alternate;
+    filter: blur(60px);
+  }
+
+  /* Text logo cu efect glow */
+  .intro-logo {
+    font-family: "Playfair Display", serif;
+    font-size: 3rem;
+    font-weight: 700;
+    color: white;
+    text-shadow: 0 0 20px rgba(197,164,126,0.8), 0 0 40px rgba(197,164,126,0.5);
+    opacity: 0;
+    animation: fadeInText 2.5s forwards;
+  }
+  .intro-logo span {
+    color: var(--gold);
+    text-shadow: 0 0 25px rgba(197,164,126,1);
+  }
+
+  @keyframes pulse {
+    from { transform: scale(0.8); opacity: 0.6; }
+    to { transform: scale(1.2); opacity: 1; }
+  }
+
+  @keyframes fadeInText {
+    0% { opacity: 0; transform: scale(0.8) translateY(40px); filter: blur(10px);}
+    70% { opacity: 1; transform: scale(1.05) translateY(0); filter: blur(0);}
+    100% { transform: scale(1); }
+  }
+
+  /* PAGE TRANSITION LAYER */
+  #transition {
+    position: fixed;
+    inset: 0;
+    background: #0c0c0d;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.8s ease;
+    z-index: 9998;
+  }
+  #transition.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+</style>
+
+<!-- Transition Layer -->
+<div id="transition">
+  <div class="transition-logo">Nan <span>Photography</span></div>
+</div>
+
+<style>
+  /* Transition Layer */
+  #transition {
+    position: fixed;
+    inset: 0;
+    background: #0c0c0d;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.6s ease;
+    z-index: 9998;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #transition.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Logo în timpul tranziției */
+  .transition-logo {
+    font-family: "Playfair Display", serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: white;
+    text-shadow: 0 0 20px rgba(197,164,126,0.8), 0 0 40px rgba(197,164,126,0.5);
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.6s ease;
+  }
+  #transition.active .transition-logo {
+    opacity: 1;
+    transform: scale(1);
+  }
+  .transition-logo span {
+    color: var(--gold);
+    text-shadow: 0 0 25px rgba(197,164,126,1);
+  }
+</style>
+
+<script>
+  // INTRO
+  window.addEventListener("load", () => {
+    setTimeout(() => {
+      document.getElementById("intro").style.opacity = "0";
+      document.getElementById("intro").style.visibility = "hidden";
+    }, 3000);
+  });
+
+  // PAGE TRANSITIONS
+  const transitionEl = document.getElementById("transition");
+  const links = document.querySelectorAll("a[href^='#']");
+
+  links.forEach(link => {
+    link.addEventListener("click", e => {
+      e.preventDefault();
+      let target = link.getAttribute("href");
+      
+      transitionEl.classList.add("active");
+
+      setTimeout(() => {
+        transitionEl.classList.remove("active");
+        document.querySelector(target).scrollIntoView({behavior: "smooth"});
+      }, 1200); // timp tranziție + scroll
+    });
+  });
+</script>
+
+  <!-- HERO -->
+  <section id="home" class="hero">
+    <div class="hero-inner reveal">
+      <div class="kicker">New Beginnings. New Memories.</div>
+      <h1 class="title">Fotografie & Filmare Evenimente</h1>
+      <p class="subtitle">Ședințe foto, nunți, botezuri, majorate și zile de naștere. Capturăm emoțiile în cadre curate, elegante și calde.</p>
+      <a class="btn" href="#contact">Book Now</a>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO -->
+  <section id="portofoliu" class="reveal">
+    <div class="container">
+      <div class="section-kicker">Portofoliu</div>
+      <h2 class="section-title">Povești de dragoste, zâmbete și lumină</h2>
+      <div class="grid portfolio">
+        <figure class="card tall">
+  <a href="nunta.html">
+    <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?q=80&w=1480&auto=format&fit=crop" alt="Nuntă"/>
+    <figcaption class="caption">Şedința foto/video nuntă</figcaption>
+  </a>
+</figure>
+            <figure class="card tall-wide">
+      <a href="cupluri.html">
+        <img src="https://wallpapercrafter.com/desktop/231223-urban-city-relationship-and-couple-hd.jpg" alt="Cupluri"/>
+        <figcaption class="caption">Ședința foto Cupluri</figcaption>
+      </a>
+    </figure>
+<figure class="card">
+  <a href="botez.html">
+    <img src="https://t4.ftcdn.net/jpg/02/61/01/75/360_F_261017586_6IfpvfSC7KpFI9RYAAv8Xq8WEd6gka6h.jpg" alt="Botez"/>
+    <figcaption class="caption">Şedința foto/video botez</figcaption>
+  </a>
+</figure>
+            <figure class="card wide">
+      <a href="majorat.html">
+        <img src="https://media.istockphoto.com/id/453050791/photo/eighteenth-birthday-cake.jpg?s=612x612&w=0&k=20&c=22rbI9h4p4-mmPjxJkgwSz_V-AX8vISTNPwburTeZ8I=" alt="Majorat"/>
+        <figcaption class="caption">Ședința foto/video Majorat</figcaption>
+      </a>
+    </figure>
+
+            <figure class="card">
+      <a href="zi-denastere.html">
+        <img src="https://wallpapercat.com/w/full/5/8/b/196261-3840x2160-desktop-4k-birthday-party-background.jpg" alt="Zi de naștere"/>
+        <figcaption class="caption">Ședința foto/video Zi de naștere</figcaption>
+      </a>
+    </figure>
+            <figure class="card wide">
+      <a href="masini.html">
+        <img src="https://w0.peakpx.com/wallpaper/876/413/HD-wallpaper-bmw-e92-blue-bmwe92-carporn-cars-night-nightphorography.jpg" alt="Mașini"/>
+        <figcaption class="caption">Foto/Video Mașini</figcaption>
+      </a>
+    </figure>
+             <figure class="card">
+      <a href="final-an-scolar.html">
+        <img src="https://media.istockphoto.com/id/1480277406/ro/fotografie/absolvirea-grupul-%C8%99i-viziunea-din-spate-a-studen%C8%9Bilor-s%C4%83rb%C4%83toresc-succesul-educa%C8%9Biei-%C3%AEn.jpg?s=612x612&w=0&k=20&c=egJ9fxLWraHMnGKzPWCnQNH8aqLioLadfdtbo_B7Txo=" alt="Final de an școlar"/>
+        <figcaption class="caption">Ședința foto/video Final de an școlar</figcaption>
+      </a>
+    </figure>
+
+            <figure class="card wide">
+      <a href="banchet.html">
+        <img src="https://media.istockphoto.com/id/1165053965/photo/portrait-of-good-looking-festive-lady-guy-having-fun-raise-hands-arms-shout-laugh-emotional.jpg?s=612x612&w=0&k=20&c=xQjOrQT-Kfe_EfOzvtscYblSbKpKmf5zvHyaOdA9VYQ=" alt="Banchet"/>
+        <figcaption class="caption">Ședința foto/video Banchet</figcaption>
+      </a>
+    </figure>
+            <figure class="card">
+      <a href="bebelusi.html">
+        <img src="https://images6.alphacoders.com/406/406524.jpg" alt="Bebeluși"/>
+        <figcaption class="caption">Ședința foto Bebeluși</figcaption>
+      </a>
+    </figure>
+             <figure class="card">
+      <a href="personala.html">
+        <img src="https://images.pexels.com/photos/31157004/pexels-photo-31157004.jpeg?cs=srgb&dl=pexels-valentin-bogdan-2150176604-31157004.jpg&fm=jpg" alt="Personală"/>
+        <figcaption class="caption">Ședința foto Personală</figcaption>
+      </a>
+    </figure>
+      </div>
+    </div>
+  </section>
+
+<section id="preturi" class="alt reveal">
+  <div class="container">
+    <div class="section-kicker">Prețuri</div>
+    <h2 class="section-title">Alege pachetul potrivit</h2>
+
+    <div class="pricing">
+      <!-- RADIO + PRICE CARDS -->
+      <input type="radio" id="opt1" name="pack" checked hidden>
+      <input type="radio" id="opt2" name="pack" hidden>
+      <input type="radio" id="opt3" name="pack" hidden>
+      <input type="radio" id="opt4" name="pack" hidden>
+      <input type="radio" id="opt5" name="pack" hidden>
+
+      <!-- LEFT -->
+      <div class="choices">
+        <label class="option" for="opt1">
+          <strong>Filmare + poze pe stick</strong>
+          <small class="muted">ședință + eveniment complet</small>
+        </label>
+        <label class="option" for="opt2">
+          <strong>Filmare pe stick + catalog foto</strong>
+          <small class="muted">album tipărit 30×30</small>
+        </label>
+        <label class="option" for="opt3">
+          <strong>Doar fotografie</strong>
+          <small class="muted">ședință + eveniment</small>
+        </label>
+        <label class="option" for="opt4">
+          <strong>Doar filmare</strong>
+          <small class="muted">HD/4K</small>
+        </label>
+        <label class="option" for="opt5">
+          <strong>Pachet Premium (drone + aftermovie)</strong>
+          <small class="muted">foto + video + album</small>
+        </label>
+      </div>
+
+      <!-- RIGHT -->
+      <div class="price-view">
+        <div class="price-card card1">
+          <div class="price-tag">2.600 RON</div>
+          <p class="muted">Filmare + fotografie livrate pe stick personalizat.</p>
+          <div class="feature">• 1 fotograf + 1 videograf</div>
+          <div class="feature">• 600+ fotografii editate</div>
+          <div class="feature">• Highlight video 3–5 minute</div>
+          <div class="feature">• Clip complet eveniment</div>
+        </div>
+        <div class="price-card card2">
+          <div class="price-tag">3.000 RON</div>
+          <p class="muted">Filmare pe stick + catalog/album foto tipărit.</p>
+          <div class="feature">• Album 30×30, 30 pagini</div>
+          <div class="feature">• 500+ fotografii editate</div>
+          <div class="feature">• Highlight & film complet</div>
+        </div>
+        <div class="price-card card3">
+          <div class="price-tag">2.000 RON</div>
+          <p class="muted">Doar fotografie (ședință + eveniment).</p>
+          <div class="feature">• 1–2 fotografi</div>
+          <div class="feature">• 700+ fotografii editate</div>
+          <div class="feature">• Galerie online</div>
+        </div>
+        <div class="price-card card4">
+          <div class="price-tag">1.900 RON</div>
+          <p class="muted">Doar filmare (HD/4K).</p>
+          <div class="feature">• 1–2 videografi</div>
+          <div class="feature">• Highlight + film complet</div>
+          <div class="feature">• Sunet profesional</div>
+        </div>
+        <div class="price-card card5">
+          <div class="price-tag">Indisponibil Momentan!</div>
+          <p class="muted">Foto + video + dronă + album tipărit.</p>
+          <div class="feature">• Dronă licențiată</div>
+          <div class="feature">• Aftermovie cinematic</div>
+          <div class="feature">• Album Premium 35×35</div>
+        </div>
+      </div>
+    </div>
+
+    <style>
+      .pricing {
+        display: flex;
+        gap: 40px;
+        align-items: flex-start;
+        margin-top: 30px;
+      }
+      .choices {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+      .option {
+        cursor: pointer;
+        padding: 12px 16px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        transition: 0.3s;
+      }
+      .option:hover {
+        background: #f8f8f8;
+      }
+
+      .price-view {
+        flex: 1;
+        position: relative;
+        min-height: 220px;
+      }
+      .price-card {
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: 0.4s;
+      }
+      .card.tall-wide {
+  grid-row: span 2; /* o face să ocupe 2 rânduri în grid */
+}
+
+.card.tall-wide img {
+  height: 100%; /* ocupă toată înălțimea containerului */
+  object-fit: cover; /* păstrează proporțiile și umple spațiul */
+}
+
+      /* SHOW ACTIVE CARD */
+      #opt1:checked ~ .choices label[for="opt1"],
+      #opt2:checked ~ .choices label[for="opt2"],
+      #opt3:checked ~ .choices label[for="opt3"],
+      #opt4:checked ~ .choices label[for="opt4"],
+      #opt5:checked ~ .choices label[for="opt5"] {
+        border-color: #000;
+        background: #f0f0f0;
+      }
+      #opt1:checked ~ .price-view .card1 {opacity:1;transform:translateY(0);}
+      #opt2:checked ~ .price-view .card2 {opacity:1;transform:translateY(0);}
+      #opt3:checked ~ .price-view .card3 {opacity:1;transform:translateY(0);}
+      #opt4:checked ~ .price-view .card4 {opacity:1;transform:translateY(0);}
+      #opt5:checked ~ .price-view .card5 {opacity:1;transform:translateY(0);}
+      
+    </style>
+  </div>
+</section>
+
+
+  <!-- ABOUT -->
+  <section id="despre" class="reveal">
+    <div class="container about">
+      <div>
+        <div class="section-kicker">Despre noi</div>
+        <h2 class="section-title">Stil cald, elegant și natural</h2>
+        <p>Suntem o echipă pasionată de povești vizuale. Ne place lumina de apus, cadrele curate și detaliile care spun totul. Lucrăm discret, dar atent, pentru ca voi să vă bucurați de moment, iar noi să surprindem emoția.</p>
+        <p class="muted">Lucrăm în toată țara. Disponibili pentru nuntă, botez, majorat, zile de naștere și ședințe foto creative.</p>
+        <a class="btn" href="#contact">Ia legatura cu noi!</a>
+      </div>
+      <div class="photo">
+        <img src="https://fotografprofesionist.ro/wp-content/uploads/2020/01/fotografii-de-nunta-andreea-si-ionut_830-copy.jpg" alt="Backstage fotografie nuntă"/>
+      </div>
+    </div>
+  </section>
+
+<!-- CONTACT -->
+<section id="contact" class="alt reveal">
+  <div class="container contact">
+    <div>
+      <div class="section-kicker">Contact</div>
+      <h2 class="section-title">Hai să povestim despre evenimentul tău</h2>
+      
+      <!-- Instagram contact -->
+      <a href="https://instagram.com/nan.photography" target="_blank" 
+         style="display:flex;align-items:center;gap:12px;margin-top:15px;text-decoration:none;">
+        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" 
+             alt="Instagram" style="width:40px;height:40px;">
+        <span style="color:#000;font-size:20px;font-weight:600;">@nan.photography</span>
+      </a>
+
+      <!-- TikTok contact -->
+      <a href="https://www.tiktok.com/@nan_photography" target="_blank" 
+         style="display:flex;align-items:center;gap:12px;margin-top:15px;text-decoration:none;">
+        <img src="https://cdn-icons-png.flaticon.com/512/3046/3046120.png" 
+             alt="TikTok" style="width:40px;height:40px;">
+        <span style="color:#000;font-size:20px;font-weight:600;">@nan_photography</span>
+      </a>
+    </div>
+
+    <div class="panel" style="background:url('https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=1200&auto=format&fit=crop') center/cover no-repeat;min-height:420px"></div>
+  </div>
+</section>
+
+  <footer>
+    <div class="container foot">
+      <div>© <span id="yr"></span>  Nan Photography • Foto & Video</div>
+      <div class="social">
+        <a href="#">Facebook</a>
+        <a href="#">Instagram</a>
+        <a href="#">TikTok</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // small progressive reveal on load for browsers without scroll observers (still CSS-only feel)
+    document.getElementById('yr').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
