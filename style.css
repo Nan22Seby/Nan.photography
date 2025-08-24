@@ -136,8 +136,8 @@ a.back:hover {
 /* Telefoane */
 @media (max-width: 640px) {
   .container {
-    width: 95%; /* mai mult spațiu pe ecran mic */
-    padding: 0 10px; /* un mic padding intern */
+    width: 95%;
+    padding: 0 10px;
   }
 
   .pricing {
@@ -146,14 +146,24 @@ a.back:hover {
   }
 
   .choices, .price-view {
-    flex: 1 1 100%; /* să ocupe 100% din lățimea ecranului */
+    flex: 1 1 100%;
+    width: 100%;
+  }
+
+  .price-view {
+    position: relative; /* să nu mai fie absolut */
+    min-height: auto;
   }
 
   .price-card {
-    position: relative; /* să nu se suprapună */
-    transform: translateY(0);
+    position: relative;
     opacity: 1;
-    margin-bottom: 20px;
+    transform: translateY(0);
+    margin-bottom: 15px;
+    box-shadow: var(--shadow);
+    border-radius: var(--radius);
+    background: #fff;
+    padding: 16px;
   }
 
   .choices label.option {
