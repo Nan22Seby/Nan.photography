@@ -135,6 +135,11 @@ a.back:hover {
 
 /* Telefoane */
 @media (max-width: 640px) {
+  .container {
+    width: 95%; /* mai mult spațiu pe ecran mic */
+    padding: 0 10px; /* un mic padding intern */
+  }
+
   .pricing {
     flex-direction: column; /* coloanele una sub alta */
     gap: 20px;
@@ -151,7 +156,6 @@ a.back:hover {
     margin-bottom: 20px;
   }
 
-  /* radio buttons nu mai afectează layout-ul */
   .choices label.option {
     border-color: #ddd;
     background: #fff;
