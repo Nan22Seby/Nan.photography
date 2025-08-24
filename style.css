@@ -134,26 +134,27 @@ a.back:hover {
 }
 
 /* Telefoane */
-@media (max-width: 768px) {
-  .section-title {
-    font-size: 1.5rem;
+@media (max-width: 640px) {
+  .pricing {
+    flex-direction: column; /* coloanele una sub alta */
+    gap: 20px;
   }
-  .caption {
-    font-size: 0.9rem;
+
+  .choices, .price-view {
+    flex: 1 1 100%; /* să ocupe 100% din lățimea ecranului */
   }
-  .contact {
-    padding: 20px;
+
+  .price-card {
+    position: relative; /* să nu se suprapună */
+    transform: translateY(0);
+    opacity: 1;
+    margin-bottom: 20px;
   }
-  footer .foot {
-    flex-direction: column;
-    gap: 10px;
-    text-align: center;
-  }
-  footer .social {
-    justify-content: center;
-  }
-  .contact a span {
-    font-size: 18px;
+
+  /* radio buttons nu mai afectează layout-ul */
+  .choices label.option {
+    border-color: #ddd;
+    background: #fff;
   }
 }
 
