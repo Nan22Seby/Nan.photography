@@ -55,6 +55,59 @@ body {
   font-size: 1rem;
 }
 
+/* PRICING */
+.pricing {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+  margin-top: 30px;
+}
+.choices {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.option {
+  cursor: pointer;
+  padding: 12px 16px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+.option:hover {
+  background: #f8f8f8;
+}
+.price-view {
+  flex: 1;
+  position: relative;
+  min-height: 220px;
+}
+.price-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: 0.4s;
+}
+#opt1:checked ~ .price-view .card1,
+#opt2:checked ~ .price-view .card2,
+#opt3:checked ~ .price-view .card3,
+#opt4:checked ~ .price-view .card4,
+#opt5:checked ~ .price-view .card5 {
+  opacity: 1;
+  transform: translateY(0);
+}
+#opt1:checked ~ .choices label[for="opt1"],
+#opt2:checked ~ .choices label[for="opt2"],
+#opt3:checked ~ .choices label[for="opt3"],
+#opt4:checked ~ .choices label[for="opt4"],
+#opt5:checked ~ .choices label[for="opt5"] {
+  border-color: #000;
+  background: #f0f0f0;
+}
+
 /* CONTACT */
 .contact {
   display: flex;
@@ -160,8 +213,8 @@ a.back:hover {
     opacity: 1;
     transform: translateY(0);
     margin-bottom: 15px;
-    box-shadow: var(--shadow);
-    border-radius: var(--radius);
+    box-shadow: 0 10px 30px rgba(0,0,0,.25);
+    border-radius: 20px;
     background: #fff;
     padding: 16px;
   }
